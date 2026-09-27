@@ -1,0 +1,11 @@
+{
+  "name": "cybersecurity-student-guide",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mammoth": "^1.11.0",
+    "jszip": "^3.10.1",
+    "@vercel/blob": "^2.5.0"
+  }
+}
