@@ -22,6 +22,41 @@
 </style>
 </head>
 <body>
+  
+<!-- زر إحصائيات الموقع -->
+<button onclick="openAnalytics()" class="stats-btn">
+  📊 إحصائيات الموقع
+</button>
+
+<style>
+.stats-btn {
+  background: #0891b2;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.stats-btn:hover {
+  background: #0e7490;
+  transform: translateY(-2px);
+}
+</style>
+
+<script>
+function openAnalytics() {
+  window.open(
+    "https://analytics.google.com/analytics/web/",
+    "_blank",
+    "noopener,noreferrer"
+  );
+}
+</script>
+
 <header><div class="shell head"><a class="brand" href="#home"><span class="mark">✳</span> دليل التخصص</a><nav class="nav" aria-label="التنقل الرئيسي"><a href="#tree">الخطة الشجرية</a><a href="#materials">المواد PDF</a><a href="#explanations">شرح المواد</a><a href="#study-plan">خطة مساعدة في تنزيل المواد</a></nav></div></header>
 <main class="shell">
 <section id="home" class="view"><div class="intro"><span class="eyebrow">أمن المعلومات والفضاء الإلكتروني</span><h1>خطتك الدراسية، بصورة أوضح.</h1><p>مساحة واحدة تساعدك على استكشاف تسلسل المواد والوصول إلى ملفاتها، خطوة بخطوة خلال دراستك للتخصص.</p></div><div class="grid" aria-label="أقسام الموقع"><a class="card" href="#tree"><span class="num">01 / مسار التخصص</span><h2>الخطة الشجرية</h2><p>تعرّف على ترتيب المواد وعلاقاتها في المخطط.</p><span class="arrow" aria-hidden="true">↖</span></a><a class="card" href="#materials"><span class="num">02 / ملفات الدراسة</span><h2>المواد PDF</h2><p>افتح مجلد ملفات المواد الدراسية.</p><span class="arrow" aria-hidden="true">↖</span></a><a class="card" href="#explanations"><span class="num">03 / المحتوى التعليمي</span><h2>شرح المواد</h2><p>صفحة مخصصة لشروحات المواد.</p><span class="arrow" aria-hidden="true">↖</span></a><a class="card" href="#study-plan"><span class="num">04 / تنظيم الفصل</span><h2>خطة مساعدة في تنزيل المواد</h2><p>صفحة مخصصة للمساعدة في اختيار المواد.</p><span class="arrow" aria-hidden="true">↖</span></a></div></section>
