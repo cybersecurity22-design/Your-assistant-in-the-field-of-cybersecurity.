@@ -1,0 +1,362 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>دليل طالب الأمن السيبراني | أمن المعلومات والفضاء الإلكتروني</title>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PY91DG8C54"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PY91DG8C54');
+</script>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f3f8fc;
+  --panel:#ffffff;
+  --border:#cbdde9;
+  --text:#17324a;
+  --muted:#52677b;
+  --accent:#087f96;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:radial-gradient(circle at 85% 0%,#d9f2f5,transparent 35rem),var(--bg);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.75;
+}
+a{color:inherit}
+a,button{transition:background .2s,border-color .2s,color .2s,transform .2s,box-shadow .2s}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.shell{width:min(1120px,calc(100% - 36px));margin-inline:auto}
+
+header{
+  border-bottom:1px solid var(--border);
+  background:#ffffffed;
+  box-shadow:0 3px 16px #17324a0d;
+}
+.head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  padding-block:18px;
+}
+.brand{text-decoration:none;font-size:1.25rem;font-weight:bold;color:#143b54}
+.mark{color:var(--accent);margin-inline-end:8px}
+.nav{display:flex;gap:10px 24px;flex-wrap:wrap}
+.nav a{text-decoration:none;color:#425d72}
+.nav a:hover,.nav a:focus-visible{color:var(--accent)}
+
+main{min-height:70vh}
+.view{padding-block:55px 80px}
+.page{display:none}
+.page:target{display:block}
+body:has(.page:target) #home{display:none}
+
+.intro{
+  position:relative;
+  min-height:240px;
+  padding:36px clamp(15px,3vw,36px) 44px 220px;
+  border:1px solid #bed9e5;
+  border-radius:22px;
+  background:linear-gradient(125deg,#ffffff,#e5f3fa);
+  box-shadow:0 18px 45px #214d6814;
+}
+.eyebrow,.num{color:var(--accent);font-weight:bold}
+.intro h1{
+  font-size:clamp(1.8rem,4vw,3.2rem);
+  margin:.25em 0;
+  color:#123650;
+}
+.intro p,.card p,.sub{color:var(--muted);max-width:700px}
+
+.analytics-btn{
+  position:absolute;
+  left:32px;
+  top:50%;
+  transform:translateY(-50%);
+  display:inline-block;
+  background:#087f96;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+  white-space:nowrap;
+}
+.analytics-btn:hover{background:#066b80;color:#fff}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  margin-top:26px;
+}
+.card,.panel,.year,.explain-group{
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--panel);
+  padding:24px;
+  box-shadow:0 10px 28px #214d680d;
+}
+.card{text-decoration:none;display:block}
+.card:hover{
+  border-color:#79bdc9;
+  color:var(--text);
+  transform:translateY(-3px);
+  box-shadow:0 16px 32px #214d681a;
+}
+.card h2{margin:.4em 0;color:#173c55}
+.arrow{color:var(--accent);font-size:1.5rem}
+.back,.drive,.explain-list a{color:var(--accent)}
+
+.drive,.notebook-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  padding:12px 22px;
+  border:1px solid #087f96;
+  border-radius:12px;
+  background:#087f96;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+}
+.drive:hover,.drive:focus-visible,
+.notebook-link:hover,.notebook-link:focus-visible{
+  background:#066b80;
+  border-color:#066b80;
+  color:#fff;
+  transform:translateY(-2px);
+}
+.back:hover,.explain-list a:hover{color:#066b80}
+
+.panel{overflow:auto}
+.tree{display:block;max-width:100%;height:auto;margin:auto}
+.year,.explain-group{margin-block:20px}
+.table-scroll{overflow-x:auto}
+table{width:100%;min-width:600px;border-collapse:collapse}
+th,td{
+  padding:14px;
+  border:1px solid var(--border);
+  vertical-align:top;
+  text-align:right;
+}
+th{background:#e0f1f6;color:#12566a}
+ul{padding-inline-start:24px}
+.explain-list{list-style:none;padding:0}
+.explain-list li{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.explain-list a{
+  display:inline-flex;
+  align-items:center;
+  padding:7px 14px;
+  border:1px solid #c0e0e7;
+  border-radius:9px;
+  background:#e7f5f8;
+  text-decoration:none;
+  font-weight:bold;
+}
+footer{
+  border-top:1px solid var(--border);
+  background:#e8f3f9;
+  padding:25px 0;
+  color:var(--muted);
+}
+
+/* NotebookLM */
+.notebook-panel{
+  max-width:830px;
+  margin:26px auto;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--panel);
+  padding:clamp(20px,4vw,36px);
+  box-shadow:0 10px 28px #214d680d;
+}
+.notebook-panel p{color:var(--muted)}
+
+@media(max-width:680px){
+  .intro{padding:28px}
+  .analytics-btn{position:static;transform:none;margin-top:16px}
+  .grid{grid-template-columns:1fr}
+  .view{padding-block:30px 50px}
+  .nav{font-size:.9rem}
+}
+</style>
+
+
+
+
+<meta content="دليل دراسي لطلاب تخصص أمن المعلومات والفضاء الإلكتروني: الخطة الشجرية، ملفات المواد، شروحات مرئية، وخطة فصول استرشادية." name="description"/><style>
+/* تحسينات الواجهة وتجربة الاستخدام */
+:root{--accent:#087f96;--bg:#f5f9fc;--panel:#fff;--border:#d5e3ec;--text:#18354b;--muted:#526b7f}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+.nav{gap:8px;max-width:100%;overflow-x:auto;flex-wrap:nowrap;padding:4px 2px;scrollbar-width:thin}
+.nav a{white-space:nowrap;padding:8px 11px;border-radius:9px}
+.nav a:hover,.nav a:focus-visible{background:#e7f4f7;text-decoration:none}
+.intro{padding:clamp(26px,5vw,54px);min-height:0;background:linear-gradient(125deg,#fff 0%,#eaf6fa 58%,#dff0f4 100%);overflow:hidden}
+.intro:after{content:"";position:absolute;inset-inline-end:-65px;bottom:-120px;width:270px;height:270px;border:1px solid #087f9626;border-radius:50%;box-shadow:0 0 0 25px #087f9608,0 0 0 52px #087f9606;pointer-events:none}
+.intro h1{max-width:800px;line-height:1.35}
+.intro p{font-size:1.08rem;max-width:760px}
+.hero-actions{position:relative;z-index:1;display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:22px}
+.primary-cta,.secondary-cta,.secondary-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 17px;border-radius:11px;text-decoration:none;font-weight:700}
+.primary-cta{background:#087f96;color:#fff;border:1px solid #087f96}
+.primary-cta:hover{background:#066b80;color:#fff;transform:translateY(-2px)}
+.secondary-cta,.secondary-btn{background:#fff;color:#176078;border:1px solid #b8d7e1}
+.secondary-cta:hover,.secondary-btn:hover{background:#edf8fa;color:#12566a;transform:translateY(-2px)}
+.analytics-btn{position:static;transform:none;white-space:normal}
+.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px}
+.card{position:relative;min-height:190px;padding:clamp(19px,3vw,25px)}
+.card h2{font-size:1.25rem}
+.card p{margin-bottom:22px}
+.page>h1{line-height:1.4}
+.course-search{margin:18px 0 12px;padding:18px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 8px 22px #214d6809}
+.course-search label{display:block;font-weight:700;margin-bottom:8px;color:#173c55}
+.course-search input{width:100%;min-height:48px;padding:10px 14px;border:1px solid #adc7d5;border-radius:10px;background:#fbfdff;color:var(--text);font:inherit}
+.course-search input:focus{outline:3px solid #087f9630;border-color:var(--accent)}
+.search-status{margin:7px 0 0;color:var(--muted);font-size:.92rem}
+.search-empty{padding:18px;border-radius:12px;background:#fff7e8;color:#765018}
+.explain-group{padding:clamp(17px,3vw,24px)}
+.explain-list li{align-items:center}
+.explain-list li[hidden],.explain-group[hidden]{display:none!important}
+.plan-notice{margin:16px 0 22px;padding:15px 18px;border-inline-start:4px solid #d79b28;border-radius:10px;background:#fff7e8;color:#604b25}
+.year h2{color:#173c55}
+footer{margin-top:12px}
+@media(max-width:680px){
+ .head{align-items:flex-start;gap:12px;padding-block:13px}
+ .nav{width:100%;gap:4px}
+ .nav a{padding:7px 9px;font-size:.88rem}
+ .intro{padding:25px 20px}
+ .hero-actions{align-items:stretch}
+ .hero-actions a{width:100%}
+ .card{min-height:0}
+ .explain-list li{align-items:flex-start}
+ .explain-list li a{flex:0 0 auto}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style></head><body><header><div class="shell head"><a class="brand" href="#home"><span class="mark">✳</span> دليل التخصص</a><nav aria-label="التنقل الرئيسي" class="nav"><a href="#tree">الخطة الشجرية</a><a href="#materials">المواد PDF</a><a href="#explanations">شرح المواد</a><a href="#study-plan">خطة مساعدة في تنزيل المواد</a><a href="#ai-study">NotebookLM 📚</a></nav></div></header><main class="shell">
+<section class="view" id="home"><div class="intro"><span class="eyebrow">أمن المعلومات والفضاء الإلكتروني</span><h1>دليل طالب الأمن السيبراني، بمكان واحد.</h1><p>استكشف الخطة الشجرية، افتح ملفات المواد، وابحث عن الشروحات وخطة الفصول المقترحة بسهولة.</p><div aria-label="روابط سريعة" class="hero-actions"><a class="primary-cta" href="#tree">استكشف الخطة الشجرية</a><a class="secondary-cta" href="#explanations">ابحث عن شرح مادة</a><a aria-label="إحصائيات الموقع - تفتح في تبويب جديد" class="analytics-btn secondary-btn" href="https://analytics.google.com/analytics/web/" rel="noopener noreferrer" target="_blank">📊 إحصائيات الموقع</a></div></div><div aria-label="أقسام الموقع" class="grid"><a class="card" href="#tree"><span class="num">01 / مسار التخصص</span><h2>الخطة الشجرية</h2><p>تعرّف على ترتيب المواد وعلاقاتها في المخطط.</p><span aria-hidden="true" class="arrow">↖</span></a><a class="card" href="#materials"><span class="num">02 / ملفات الدراسة</span><h2>المواد PDF</h2><p>افتح مجلد ملفات المواد الدراسية.</p><span aria-hidden="true" class="arrow">↖</span></a><a class="card" href="#explanations"><span class="num">03 / المحتوى التعليمي</span><h2>شرح المواد</h2><p>صفحة مخصصة لشروحات المواد.</p><span aria-hidden="true" class="arrow">↖</span></a><a class="card" href="#study-plan"><span class="num">04 / تنظيم الفصل</span><h2>خطة مساعدة في تنزيل المواد</h2><p>صفحة مخصصة للمساعدة في اختيار المواد.</p><span aria-hidden="true" class="arrow">↖</span></a><a class="card" href="#ai-study"><span class="num">05 / دراسة تفاعلية</span><h2>NotebookLM 📚</h2><p>افتح NotebookLM لدراسة ملفاتك وإنشاء ملخصات وأسئلة.</p><span aria-hidden="true" class="arrow">↖</span></a></div></section>
+<section class="view page" id="tree"><a class="back" href="#home">→ العودة للرئيسية</a><h1>الخطة الشجرية</h1><p class="sub">مخطط مواد تخصص أمن المعلومات والفضاء الإلكتروني.</p><div class="panel"><img alt="الخطة الشجرية لمواد تخصص أمن المعلومات والفضاء الإلكتروني" class="tree" loading="lazy" src="https://cdn.phototourl.com/member/2026-10-07-61854044-59a0-4131-9d89-45f1cb50d778.jpg"/ width="1536" height="1248"><a class="open" download="course-tree.jpeg" href="https://cdn.phototourl.com/member/2026-10-07-61854044-59a0-4131-9d89-45f1cb50d778.jpg">تحميل الصورة بالحجم الكامل ↓</a></div></section>
+<section class="view page" id="materials"><a class="back" href="#home">→ العودة للرئيسية</a><h1>المواد PDF</h1><p class="sub">ملفات المواد متاحة عبر المجلد التالي.</p><div class="panel"><a class="drive" href="https://drive.google.com/drive/folders/1prBENUcH8T5YcBmDaViweetloSDrve-y" rel="noopener noreferrer" target="_blank">فتح مجلد المواد PDF ↗</a></div></section>
+<section class="view page" id="explanations"><a class="back" href="#home">→ العودة للرئيسية</a><h1>شرح المواد</h1><div class="course-search" role="search"><label for="course-search-input">ابحث عن مادة</label><input aria-describedby="course-search-status" autocomplete="off" id="course-search-input" placeholder="مثال: شبكات، تشفير، برمجة…" type="search"/><p aria-live="polite" class="search-status" id="course-search-status">اكتب اسم المادة لعرض الشروحات المطابقة.</p></div><p class="search-empty" hidden="True" id="course-search-empty">ما لقينا مادة بهذا الاسم. جرّب كلمة أقصر أو تأكد من كتابة الاسم.</p><section class="explain-group"><h2>المواد الرياضية</h2><ul class="explain-list"><li><span>تفاضل وتكامل 1</span><a aria-label="شاهد شرح تفاضل وتكامل 1 على يوتيوب" href="https://www.youtube.com/playlist?list=PLvuToPs04FnDqVhNAH5kQCVtWbTB1NymX" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>تفاضل وتكامل 2</span><a aria-label="شاهد شرح تفاضل وتكامل 2 على يوتيوب" href="https://www.youtube.com/playlist?list=PLvuToPs04FnC4T14gDtl6CFNLUIv_EXjI" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>جبر خطي</span><a aria-label="شاهد شرح جبر خطي على يوتيوب" href="https://www.youtube.com/playlist?list=PLvuToPs04FnD1lFBolGr4ROQaxQ_zyC1c" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>الاحتمالات والإحصاء</span><a aria-label="شاهد شرح الاحتمالات والإحصاء على يوتيوب" href="https://www.youtube.com/playlist?list=PLNvuKI7qTnnXf9HXAxQme2ExcdfwsSYW9" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li></ul></section><section class="explain-group"><h2>مواد برمجية</h2><ul class="explain-list"><li><span>مهارات حاسوب لطلبة الذكاء الاصطناعي</span><a aria-label="شاهد شرح مهارات حاسوب لطلبة الذكاء الاصطناعي على يوتيوب" href="https://www.youtube.com/playlist?list=PLYyqC4bNbCIcxKO_r77w5MN1SRRnnfvNQ" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>برمجة موجهة للكائنات</span><a aria-label="شاهد شرح برمجة موجهة للكائنات على يوتيوب" href="https://www.youtube.com/playlist?list=PLUgz8T_NoattU54gGARPXPmmawQNl-1_T" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>هياكل بيانات</span><a aria-label="شاهد شرح هياكل بيانات على يوتيوب" href="https://www.youtube.com/playlist?list=PLGbzY-VLUfcp6UEVB2vJpoCiRJyZsbgX4" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>برمجة ويب</span><a aria-label="شاهد شرح برمجة ويب على يوتيوب" href="https://www.youtube.com/playlist?list=PL7VOgFQ42C7e-lWJiV4QeqRg3GqCOgoab" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li></ul></section><section class="explain-group"><h2>باقي المواد</h2><ul class="explain-list"><li><span>مبادئ الأمن السيبراني</span><a aria-label="شاهد شرح مبادئ الأمن السيبراني على يوتيوب" href="https://www.youtube.com/playlist?list=PLUqu1vWoSCTRHyM1ljQC5K5AeX3R2goV3" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>شبكات حاسوب</span><a aria-label="شاهد شرح شبكات حاسوب على يوتيوب" href="https://www.youtube.com/playlist?list=PLW_bvpno-KN5kXouC0Y48urCyiaqfqPN-" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>الهياكل والرياضيات المنفصلة</span><a aria-label="شاهد شرح الهياكل والرياضيات المنفصلة على يوتيوب" href="https://www.youtube.com/playlist?list=PLxIvc-MGOs6gZlMVYOOEtUHJmfUquCjwz" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li><li><span>أمن شبكات</span><a aria-label="شاهد شرح أمن شبكات على يوتيوب" href="https://www.youtube.com/playlist?list=PLQ4MHTchEqH09Tcc8Z6znwsMxRoXNzSCe" rel="noopener noreferrer" target="_blank">مشاهدة الشرح ↗</a></li></ul></section></section>
+<section class="view page" id="study-plan"><a class="back" href="#home">→ العودة للرئيسية</a><h1>خطة مساعدة في تنزيل المواد</h1><aside class="plan-notice" role="note">تنبيه: هذه خطة مساعدة استرشادية لتنظيم المواد، وليست بديلًا عن الخطة الرسمية. تأكد من المتطلبات والخطة المعتمدة لدى القسم قبل التسجيل.</aside><section class="year"><h2>السنة الأولى</h2><div aria-label="مواد السنة الأولى" class="table-scroll" role="region" tabindex="0"><table><thead><tr><th scope="col">الفصل الأول</th><th scope="col">الفصل الثاني</th><th scope="col">الفصل الصيفي</th></tr></thead><tbody><tr><td><ul><li>تفاضل وتكامل 1</li><li>تربية وطنية والسلوك الجامعي</li><li>متطلب جامعة اختياري يختاره الطالب</li><li>عربي تطبيقي</li></ul></td><td><ul><li>مبادئ الأمن السيبراني</li><li>مهارات حاسوب لطلبة كلية الذكاء الاصطناعي ولابها</li><li>الهياكل والرياضيات المنفصلة</li><li>تفاضل وتكامل 2</li></ul></td><td><ul><li>شبكات حاسوب</li><li>برمجة موجهة للكائنات ولابها</li><li>جبر خطي</li></ul></td></tr></tbody></table></div></section><section class="year"><h2>السنة الثانية</h2><div aria-label="مواد السنة الثانية" class="table-scroll" role="region" tabindex="0"><table><thead><tr><th scope="col">الفصل الأول</th><th scope="col">الفصل الثاني</th><th scope="col">الفصل الصيفي</th></tr></thead><tbody><tr><td><ul><li>أمن شبكات</li><li>لاب شبكات حاسوب</li><li>هياكل بيانات</li><li>أمن بنية تحتية باستخدام يونكس ولابها</li><li>تطبيقات ذكاء اصطناعي</li></ul></td><td><ul><li>تصميم منطق رقمي</li><li>لاب أمن شبكات</li><li>قواعد بيانات وأمنها ولابها</li><li>الاستخبارات الأمنية</li><li>مهارات حياتية</li></ul></td><td><ul><li>لاب هياكل بيانات</li><li>تصميم وتحليل الخوارزميات</li><li>الاحتمالات والإحصاء</li><li>علوم عسكرية</li></ul></td></tr></tbody></table></div></section><section class="year"><h2>السنة الثالثة</h2><div aria-label="مواد السنة الثالثة" class="table-scroll" role="region" tabindex="0"><table><thead><tr><th scope="col">الفصل الأول</th><th scope="col">الفصل الثاني</th><th scope="col">الفصل الصيفي</th></tr></thead><tbody><tr><td><ul><li>تحقيقات الجنائية الرقمية</li><li>برمجة ويب ولابها</li><li>الأمن الدفاعي</li><li>إنجليزي تطبيقي</li></ul></td><td><ul><li>إدارة المخاطر والأخلاقيات</li><li>تعلم الآلة ولابها</li><li>أساسيات تشفير</li><li>اختبار الاختراق ولابها</li></ul></td><td><ul><li>تخصص اختياري يختاره الطالب</li><li>أمن ويب والتطبيقات</li><li>متطلب تخصص</li></ul></td></tr></tbody></table></div></section><section class="year"><h2>السنة الرابعة</h2><div aria-label="مواد السنة الرابعة" class="table-scroll" role="region" tabindex="0"><table><thead><tr><th scope="col">الفصل الأول</th><th scope="col">الفصل الثاني</th></tr></thead><tbody><tr><td><ul><li>تخصص اختياري يختاره الطالب</li><li>تخصص اختياري يختاره الطالب</li><li>بروتوكولات الاتصالات الآمنة</li><li>نظم تشغيل</li><li>مشروع تخرج 1</li></ul></td><td><ul><li>تدريب ميداني</li><li>مشروع تخرج 2</li><li>متطلب جامعة اختياري يختاره الطالب</li><li>ريادة وابتكار</li></ul></td></tr></tbody></table></div></section></section>
+<section aria-labelledby="notebook-title" class="view page" id="ai-study">
+<a class="back" href="#home">→ العودة للرئيسية</a>
+<h1 id="notebook-title">📚 الدراسة باستخدام NotebookLM</h1>
+<div class="notebook-panel">
+<p>افتح NotebookLM وأضف ملفات محاضراتك إلى دفتر خاص بك، ثم استخدم أدواته للمراجعة والتلخيص وطرح الأسئلة.</p>
+<a class="notebook-link" href="https://notebooklm.google.com/" rel="noopener noreferrer" target="_blank">فتح NotebookLM ↗</a>
+<p>يفتح الرابط موقع NotebookLM في تبويب جديد؛ قد تحتاج إلى تسجيل الدخول بحساب Google. إذا وفّرت رابط دفتر مشتركًا لمادة محددة، يمكن وضعه هنا بدل الرابط العام.</p>
+</div>
+</section>
+</main><footer><div class="shell">دليل أمن المعلومات والفضاء الإلكتروني</div></footer><script>(function(){
+  'use strict';
+  const input=document.getElementById('course-search-input');
+  const status=document.getElementById('course-search-status');
+  const empty=document.getElementById('course-search-empty');
+  const root=document.getElementById('explanations');
+  if(!input||!status||!empty||!root)return;
+  const normalize=(value)=>String(value||'').toLocaleLowerCase('ar').normalize('NFKD')
+    .replace(/\p{M}/gu,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').trim();
+  function filterCourses(){
+    const query=normalize(input.value);
+    const groups=root.querySelectorAll('.explain-group');
+    let shown=0,total=0;
+    groups.forEach((group)=>{
+      let shownInGroup=0;
+      group.querySelectorAll('.explain-list li').forEach((item)=>{
+        total++;
+        const name=item.querySelector('span')?.textContent||item.textContent;
+        const matches=!query||normalize(name).includes(query);
+        item.hidden=!matches;
+        if(matches){shown++;shownInGroup++;}
+      });
+      group.hidden=shownInGroup===0;
+    });
+    empty.hidden=shown!==0;
+    status.textContent=query
+      ? (shown ? `المواد الظاهرة: ${shown} من ${total}.` : 'ما في نتائج مطابقة.')
+      : 'اكتب اسم المادة لعرض الشروحات المطابقة.';
+  }
+  input.addEventListener('input',filterCourses);
+  document.addEventListener('site-content-updated',filterCourses);
+  filterCourses();
+})();</script><script src="live-content.js?v=20260927-2" defer></script>
+<script>
+(function(){
+  'use strict';
+
+  async function refreshTreeImage(){
+    const treeSection = document.getElementById('tree');
+    if(!treeSection) return;
+
+    try{
+      const url = new URL(location.href);
+      url.hash = '';
+      url.searchParams.set('_tree_refresh', Date.now());
+
+      const res = await fetch(url.toString(), {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
+      if(!res.ok) return;
+
+      const latestHtml = await res.text();
+      const doc = new DOMParser().parseFromString(latestHtml, 'text/html');
+
+      const latestPanel = doc.querySelector('#tree .panel');
+      const currentPanel = document.querySelector('#tree .panel');
+
+      if(latestPanel && currentPanel && latestPanel.innerHTML !== currentPanel.innerHTML){
+        currentPanel.innerHTML = latestPanel.innerHTML;
+
+        const img = currentPanel.querySelector('img.tree');
+        if(img){
+          try{
+            const imgUrl = new URL(img.getAttribute('src'), location.href);
+            imgUrl.searchParams.set('_img_refresh', Date.now());
+            img.src = imgUrl.toString();
+          }catch(_){}
+        }
+      }
+    }catch(e){
+      console.warn('تعذر تحديث صورة الخطة تلقائياً:', e);
+    }
+  }
+
+  function refreshWhenTreeVisible(){
+    if(location.hash === '#tree'){
+      refreshTreeImage();
+    }
+  }
+
+  window.addEventListener('hashchange', refreshWhenTreeVisible);
+  window.addEventListener('focus', refreshWhenTreeVisible);
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden) refreshWhenTreeVisible();
+  });
+
+  if(location.hash === '#tree'){
+    refreshTreeImage();
+  }
+})();
+</script>
+
+</body></html>
