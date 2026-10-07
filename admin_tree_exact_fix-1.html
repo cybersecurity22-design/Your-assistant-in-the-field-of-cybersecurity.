@@ -1,0 +1,173 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>إدارة دليل التخصص</title><style>
+:root{color-scheme:dark;font-family:Tahoma,Arial,sans-serif}*{box-sizing:border-box}body{margin:0;background:#071526;color:#edf7fb;line-height:1.7}main{max-width:1060px;margin:auto;padding:24px}section{background:#10263b;border:1px solid #24425a;border-radius:14px;margin:20px 0;padding:20px}h1,h2{color:#67e2c3}label{display:block;margin:10px 0}input{width:100%;background:#0a1b2d;color:white;border:1px solid #41637b;border-radius:8px;padding:10px;font:inherit}button{border:0;border-radius:8px;background:#0c8294;color:white;padding:10px 16px;font:inherit;cursor:pointer;margin:5px}button:hover{filter:brightness(1.2)}.danger{background:#893d4d}.row{display:grid;grid-template-columns:1fr 1.6fr auto;gap:10px;align-items:end;border-bottom:1px solid #24425a;padding:7px}.row.single{grid-template-columns:1fr auto}.muted{color:#b6cbd8}#editor[hidden]{display:none}@media(max-width:650px){.row,.row.single{display:block}}
+</style><link rel="stylesheet" href="theme.css"></head><body><main><h1>صفحة إدارة دليل التخصص</h1><p class="muted">استخدم رمز GitHub بصلاحية <b>Contents: Read and write</b> لهذا المستودع فقط. الرمز يبقى في ذاكرة هذه الصفحة ويُمسح عند إغلاقها؛ لا تشاركه مع أي شخص.</p><section><label>رمز الوصول الخاص بك <input id="token" type="password" autocomplete="off" placeholder="github_pat_..."></label><button id="load">دخول وتحميل البيانات</button><p id="status" role="status"></p></section>
+<div id="editor" hidden><section><h2>رابط ملفات PDF</h2><label>الرابط <input id="pdf" type="url"></label></section><section><h2>صورة الخطة الشجرية</h2>
+<label>اختر صورة من جهازك
+<input id="treeFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+</label>
+<img id="treePreview" alt="معاينة الصورة" style="display:none;max-width:100%;max-height:420px;margin:12px auto;border-radius:10px;border:1px solid #41637b">
+<div>
+<button id="saveTreeImage" type="button">رفع وإضافة/استبدال الصورة</button>
+<button id="removeTreeImage" type="button" class="danger">حذف صورة الخطة</button>
+</div>
+<p id="treeStatus" class="muted"></p>
+<p class="muted">الصورة تُرفع إلى GitHub داخل مجلد assets، ثم تُضاف إلى قسم الخطة الشجرية في index.html حتى لو كان القسم فارغًا.</p>
+</section><section><h2>شروحات المواد</h2><div id="groups"></div><button id="addGroup">إضافة قسم</button></section><section><h2>الخطة الدراسية</h2><div id="years"></div><button id="addYear">إضافة سنة</button></section><section><button id="save">تحديث الموقع الآن</button><p id="saveStatus" role="status" aria-live="polite" style="font-weight:bold;color:#67e2c3"></p><p class="muted">يُحفظ المحتوى في المستودع مباشرة. افتح الموقع أو حدّث الصفحة لرؤية التعديل. التبويب المفتوح يعيد جلب البيانات عند العودة إليه بعد دقيقتين.</p></section></div></main>
+<script>
+(() => {
+'use strict';
+const url='https://api.github.com/repos/cybersecurity22-design/Your-assistant-in-the-field-of-cybersecurity./contents/content.json';
+const $=id=>document.getElementById(id);let data,sha;
+const el=(tag,text)=>{const x=document.createElement(tag);if(text!=null)x.textContent=text;return x;};
+const status=text=>{$('status').textContent=text;$('saveStatus').textContent=text;};
+function input(value,handler,type='text'){const x=el('input');x.type=type;x.value=value||'';x.oninput=()=>handler(x.value);return x;}
+function button(text,handler,danger=false){const x=el('button',text);x.type='button';if(danger)x.className='danger';x.onclick=handler;return x;}
+function row(parent,values,del){const div=el('div');div.className='row'+(values.length===1?' single':'');for(const field of values)div.append(field);div.append(button('حذف',del,true));parent.append(div);}
+function render(){
+ $('pdf').value=data.pdfUrl||'';
+ const gs=$('groups');gs.replaceChildren();
+ data.groups.forEach((g,gi)=>{
+  const box=el('section');box.append(el('h3','قسم الشروحات'),input(g.title,v=>g.title=v));
+  g.items.forEach((item,ii)=>row(box,[input(item.name,v=>item.name=v),input(item.url,v=>item.url=v,'url')],()=>{g.items.splice(ii,1);render();}));
+  box.append(button('إضافة شرح',()=>{g.items.push({name:'مادة جديدة',url:'https://www.youtube.com/'});render();}));
+  box.append(button('حذف القسم',()=>{if(confirm('حذف القسم وكل الشروحات؟')){data.groups.splice(gi,1);render();}},true));gs.append(box);
+ });
+ const ys=$('years');ys.replaceChildren();
+ data.years.forEach((year,yi)=>{
+  const box=el('section');box.append(el('h3','السنة'),input(year.name,v=>year.name=v));
+  year.terms.forEach((term,ti)=>{
+   const termBox=el('section');termBox.append(el('h4','الفصل'),input(term.name,v=>term.name=v));
+   term.items.forEach((name,ii)=>row(termBox,[input(name,v=>term.items[ii]=v)],()=>{term.items.splice(ii,1);render();}));
+   termBox.append(button('إضافة مادة',()=>{term.items.push('مادة جديدة');render();}));
+   termBox.append(button('حذف الفصل',()=>{if(confirm('حذف الفصل؟')){year.terms.splice(ti,1);render();}},true));box.append(termBox);
+  });
+  box.append(button('إضافة فصل',()=>{year.terms.push({name:'فصل جديد',items:[]});render();}));
+  box.append(button('حذف السنة',()=>{if(confirm('حذف السنة وكل موادها؟')){data.years.splice(yi,1);render();}},true));ys.append(box);
+ });
+}
+$('pdf').oninput=e=>{if(data)data.pdfUrl=e.target.value;};
+$('addGroup').onclick=()=>{data.groups.push({title:'قسم جديد',items:[]});render();};
+$('addYear').onclick=()=>{data.years.push({name:'سنة جديدة',terms:[]});render();};
+function decode(base64){const bytes=Uint8Array.from(atob(base64.replace(/\s/g,'')),c=>c.charCodeAt(0));return new TextDecoder().decode(bytes);}
+function encode(text){const bytes=new TextEncoder().encode(text);let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);return btoa(binary);}
+async function request(method,body){const token=$('token').value.trim();if(!token)throw Error('أدخل رمز الوصول أولاً.');
+ const response=await fetch(url,{method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,cache:'no-store'});
+ const json=await response.json();if(!response.ok)throw Error(json.message||'GitHub API '+response.status);return json;
+}
+const repoApi='https://api.github.com/repos/cybersecurity22-design/Your-assistant-in-the-field-of-cybersecurity.';
+function treeMsg(t){$('treeStatus').textContent=t;}
+async function repoRequest(method,path,body){
+ const token=$('token').value.trim();
+ if(!token)throw Error('أدخل رمز الوصول أولاً.');
+ const response=await fetch(repoApi+path,{
+   method,
+   headers:{
+     Accept:'application/vnd.github+json',
+     Authorization:'Bearer '+token,
+     'Content-Type':'application/json',
+     'X-GitHub-Api-Version':'2022-11-28'
+   },
+   body:body?JSON.stringify(body):undefined,
+   cache:'no-store'
+ });
+ const json=await response.json().catch(()=>({}));
+ if(!response.ok)throw Error(json.message||('GitHub API '+response.status));
+ return json;
+}
+function fileBase64(file){
+ return new Promise((resolve,reject)=>{
+   const r=new FileReader();
+   r.onload=()=>resolve(String(r.result).split(',')[1]||'');
+   r.onerror=()=>reject(r.error);
+   r.readAsDataURL(file);
+ });
+}
+function replaceOrAddTreeImage(html,src,remove=false){
+ const sectionRe=/<section\b[^>]*\bid=["']tree["'][^>]*>[\s\S]*?<\/section>/i;
+ const sectionMatch=html.match(sectionRe);
+ if(!sectionMatch)throw Error('لم أجد قسم الخطة الشجرية id="tree" داخل index.html.');
+
+ let section=sectionMatch[0];
+ const panelRe=/<div\b[^>]*class=["'][^"']*\bpanel\b[^"']*["'][^>]*>[\s\S]*?<\/div>/i;
+ const panelMatch=section.match(panelRe);
+ if(!panelMatch)throw Error('لم أجد panel داخل قسم الخطة الشجرية.');
+
+ let panel=panelMatch[0];
+
+ // Remove any existing tree image and its open/download link.
+ panel=panel.replace(/<img\b[^>]*(?:class=["'][^"']*\btree\b[^"']*["']|alt=["'][^"']*الخطة الشجرية[^"']*["'])[^>]*>(?:\s*)/i,'');
+ panel=panel.replace(/<a\b[^>]*class=["'][^"']*\bopen\b[^"']*["'][^>]*>[\s\S]*?<\/a>/i,'');
+
+ if(!remove){
+   const safeSrc=src.replace(/"/g,'%22');
+   const image='<img alt="الخطة الشجرية لمواد تخصص أمن المعلومات والفضاء الإلكتروني" class="tree" loading="lazy" src="'+safeSrc+'" width="1536" height="1248">';
+   const link='<a class="open" href="'+safeSrc+'" target="_blank" rel="noopener">فتح الصورة بالحجم الكامل ↗</a>';
+   panel=panel.replace(/<\/div>\s*$/i,image+link+'</div>');
+ }
+
+ section=section.replace(panelMatch[0],panel);
+ return html.replace(sectionMatch[0],section);
+}
+async function writeIndexImage(src,remove=false){
+ const current=await repoRequest('GET','/contents/index.html');
+ const html=decode(current.content||'');
+ const updated=replaceOrAddTreeImage(html,src,remove);
+ await repoRequest('PUT','/contents/index.html',{
+   message: remove ? 'Remove tree plan image from admin' : 'Update tree plan image from admin',
+   content:encode(updated),
+   sha:current.sha
+ });
+}
+$('treeFile').onchange=e=>{
+ const f=e.target.files&&e.target.files[0];
+ const p=$('treePreview');
+ if(!f){p.style.display='none';p.removeAttribute('src');return;}
+ p.src=URL.createObjectURL(f);p.style.display='block';
+ treeMsg('تم اختيار الصورة. اضغط رفع وإضافة/استبدال الصورة.');
+};
+$('saveTreeImage').onclick=async()=>{
+ const f=$('treeFile').files&&$('treeFile').files[0];
+ if(!f){treeMsg('اختر صورة من جهازك أولاً.');return;}
+ const btn=$('saveTreeImage');btn.disabled=true;
+ try{
+   treeMsg('جاري رفع الصورة إلى GitHub ثم إضافتها داخل index.html...');
+   const ext=(f.name.split('.').pop()||'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase()||'jpg';
+   const asset='assets/tree-plan-'+Date.now()+'.'+ext;
+   await repoRequest('PUT','/contents/'+asset,{
+     message:'Upload tree plan image from admin',
+     content:await fileBase64(f)
+   });
+   await writeIndexImage(asset,false);
+   treeMsg('تم بنجاح ✅ تم رفع الصورة وإضافتها داخل قسم الخطة الشجرية في index.html. انتظر النشر ثم حدّث الموقع.');
+ }catch(e){
+   treeMsg('فشل: '+e.message);
+ }finally{
+   btn.disabled=false;
+ }
+};
+$('removeTreeImage').onclick=async()=>{
+ if(!confirm('حذف صورة الخطة من index.html؟'))return;
+ const btn=$('removeTreeImage');btn.disabled=true;
+ try{
+   treeMsg('جاري حذف صورة الخطة...');
+   await writeIndexImage('',true);
+   treeMsg('تم حذف صورة الخطة من index.html بنجاح.');
+ }catch(e){
+   treeMsg('فشل: '+e.message);
+ }finally{
+   btn.disabled=false;
+ }
+};
+
+$('load').onclick=async()=>{status('جاري تحميل البيانات...');try{const file=await request('GET');sha=file.sha;data=JSON.parse(decode(file.content));render();$('editor').hidden=false;status('تم التحميل.');}catch(e){status('تعذر التحميل: '+e.message);}};
+$('save').onclick=async()=>{
+ if(!data||!sha)return;
+ if(data.pdfUrl&&!/^https:\/\//.test(data.pdfUrl)){status('رابط PDF يجب أن يبدأ بـ https://');return;}
+ for(const g of data.groups)for(const item of g.items)if(item.url&&!/^https:\/\//.test(item.url)){status('روابط الشروحات يجب أن تبدأ بـ https://');return;}
+ const save=$('save');save.disabled=true;status('جاري تحديث الموقع...');
+ try{const result=await request('PUT',{message:'Update site content from admin page',content:encode(JSON.stringify(data,null,2)+'\n'),sha});sha=result.content.sha;status('تم حفظ التعديل في GitHub بنجاح. يتم عرض الشروحات من GitHub مباشرة بعد نشر ملفات الإصلاح على الموقع؛ إذا لم يظهر التغيير، تأكد من أن Vercel ينشر هذا المستودع.');}
+ catch(e){status('فشل الحفظ: '+e.message+'؛ إذا عُدّل الملف من مكان آخر، أعد تحميل البيانات قبل الحفظ.');}
+ finally{save.disabled=false;}
+};
+})();
+</script></body></html>
